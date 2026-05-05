@@ -18,7 +18,7 @@ export function ButtonUpBack(id, type, hoverColor, callback) {
     background-color: transparent;
     border: 0;
     padding: 1em;
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@ export function ButtonLeave(id, title, hoverColor, callback) {
 
   btn.style.cssText = `
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.5em;
     font-weight: semi-bold;
     background-color: transparent;
     border: 0;

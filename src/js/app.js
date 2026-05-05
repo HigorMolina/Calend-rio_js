@@ -1,34 +1,34 @@
 import Panel from "./components/panel.js";
 
+import { MonthsDots } from "./components/months.js";
+
+const now = new Date();
+
 const panelsData = [
   {
     id: "panel-ano",
-    title: "Ano",
+    title: now.getFullYear(),
     bg: "#013a63",
     colorHover: "#014f86",
-    content: "",
   },
   {
     id: "panel-meses",
-    title: "Meses",
+    title: now.toLocaleString("pt-BR", { month: "long" }),
     bg: "#01497c",
     colorHover: "#2a6f97",
-    content: "",
   },
   {
     id: "panel-dias",
-    title: "Dias",
+    title: now.getDay(),
     bg: "#014f86",
     colorHover: "#2a6f97",
-    content: "",
   },
-  {
-    id: "panel-horarios",
-    title: "Horários",
-    bg: "#2a6f97",
-    colorHover: "#468faf",
-    content: "",
-  },
+  // {
+  //   id: "panel-horarios",
+  //   title: "Horários",
+  //   bg: "#2a6f97",
+  //   colorHover: "#468faf",
+  // },
 ];
 
 const body = document.querySelector("body");
@@ -36,3 +36,5 @@ const body = document.querySelector("body");
 panelsData.forEach((el) =>
   body.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el.content)),
 );
+
+MonthsDots();

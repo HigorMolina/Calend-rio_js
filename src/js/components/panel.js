@@ -1,14 +1,18 @@
 import { ButtonUpBack, ButtonLeave } from "./button.js";
 
-export default function Panel(id, title, bg, hoverColor, content) {
+export default function Panel(id, title, bg, hoverColor) {
   const panel = document.createElement("div");
 
   panel.id = id;
 
   panel.style.cssText = `
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
   flex: 1;
   padding: 1em;
-  background-color: ${bg}`;
+  background-color: ${bg}
+  `;
 
   const section = document.createElement("section");
 
@@ -68,20 +72,3 @@ export default function Panel(id, title, bg, hoverColor, content) {
 
   return panel;
 }
-
-// <div class="painel-meses">
-//   <section>
-//     <header class="date-header">
-//       <button class="botao-voltar"><h2>Ano</h2></button>
-//       <div class="nav-group">
-//         <button class="botao-nav">
-//           <i class="fa-solid fa-chevron-up"></i>
-//         </button>
-//         <button class="botao-nav">
-//           <i class="fa-solid fa-chevron-down"></i>
-//         </button>
-//       </div>
-//     </header>
-//     <main>Meses</main>
-//   </section>
-// </div>
