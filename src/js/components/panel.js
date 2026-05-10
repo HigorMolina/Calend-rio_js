@@ -1,6 +1,6 @@
 import { ButtonUpBack, ButtonLeave } from "./button.js";
 
-export default function Panel(id, title, bg, hoverColor) {
+export default function Panel(id, title, bg, hoverColor, canBack = true) {
   const panel = document.createElement("div");
 
   panel.id = id;
@@ -14,8 +14,6 @@ export default function Panel(id, title, bg, hoverColor) {
   background-color: ${bg}
   `;
 
-  const section = document.createElement("section");
-
   const header = document.createElement("header");
 
   header.style.cssText = `
@@ -24,6 +22,25 @@ export default function Panel(id, title, bg, hoverColor) {
     align-items: center;
     justify-content: space-between;
   `;
+
+  if (!canBack) {
+    const p = document.createElement("p");
+
+    p.textContent = title;
+
+    p.style.cssText = `
+    font-size: 24px;
+    font-weight: semi-bold;
+    `;
+
+    header.appendChild(p);
+
+    panel.appendChild(header);
+
+    return panel;
+  }
+
+  const section = document.createElement("section");
 
   header.appendChild(
     ButtonLeave(`${title}-leave`, title, hoverColor, () =>

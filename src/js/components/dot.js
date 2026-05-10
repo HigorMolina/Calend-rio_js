@@ -10,9 +10,8 @@ export default function Dot(title, hoverColor) {
     align-items: center;
     justify-content: center;
     padding: 1em;
-    aspect-ratio: 1/1;
-    border-radius: 1em;
-    font-size: 1.5em;
+    border-radius: 0.5em;
+    font-size: 20px;
     font-weight: semi-bold;
     transition: all 0.5s;
     `;

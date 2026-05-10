@@ -7,34 +7,35 @@ const now = new Date();
 const panelsData = [
   {
     id: "panel-ano",
-    title: now.getFullYear(),
+    title: "Anos",
     bg: "#013a63",
     colorHover: "#014f86",
+    canBack: false,
   },
   {
     id: "panel-meses",
-    title: now.toLocaleString("pt-BR", { month: "long" }),
+    title: now.getFullYear(),
     bg: "#01497c",
     colorHover: "#2a6f97",
   },
   {
     id: "panel-dias",
-    title: now.getDay(),
+    title: now.toLocaleString("pt-BR", { month: "long" }),
     bg: "#014f86",
     colorHover: "#2a6f97",
   },
-  // {
-  //   id: "panel-horarios",
-  //   title: "Horários",
-  //   bg: "#2a6f97",
-  //   colorHover: "#468faf",
-  // },
+  {
+    id: "panel-horario",
+    title: now.getDay(),
+    bg: "#2a6f97",
+    colorHover: "#468faf",
+  },
 ];
 
 const body = document.querySelector("body");
 
 panelsData.forEach((el) =>
-  body.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el.content)),
+  body.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el?.canBack)),
 );
 
 MonthsDots();
