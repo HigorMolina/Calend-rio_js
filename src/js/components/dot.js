@@ -1,10 +1,10 @@
-export default function Dot(title, buttonColor, hoverColor) {
+export default function Dot(title, buttonColor, hoverColor, circle = false) {
   // TODO: MUDAR PARA BUTTON
   const dot = document.createElement("div");
 
   dot.textContent = title;
 
-  dot.style.cssText = `
+  const baseCss = `
     display: flex;
     background-color: ${buttonColor};
     cursor: pointer;
@@ -16,6 +16,16 @@ export default function Dot(title, buttonColor, hoverColor) {
     font-weight: semi-bold;
     transition: all 0.5s;
     `;
+
+  if (circle) {
+    dot.style.cssText = `
+    ${baseCss}
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    `;
+  } else {
+    dot.style.cssText = baseCss;
+  }
 
   dot.addEventListener("mouseenter", () => {
     dot.style.backgroundColor = hoverColor;

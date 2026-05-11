@@ -1,5 +1,7 @@
 import { getMonths } from "../features/calendar.js";
 
+import { getSecundaryColor } from "../utils/css.variables.js";
+
 import Dot from "./dot.js";
 
 export function MonthsDots(buttonColor, buttonHover) {
@@ -15,8 +17,16 @@ export function MonthsDots(buttonColor, buttonHover) {
     overflow-y: auto;
   `;
 
-  meses.forEach((el) => {
-    const dot = Dot(el, buttonColor, buttonHover);
+  const actualMonth = new Date().getMonth();
+
+  meses.forEach((el, i) => {
+    const isActive = i == actualMonth;
+
+    const dot = Dot(
+      el,
+      isActive ? getSecundaryColor() : buttonColor,
+      isActive ? buttonColor : buttonHover,
+    );
 
     section.appendChild(dot);
   });

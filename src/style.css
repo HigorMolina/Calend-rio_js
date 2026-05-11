@@ -11,6 +11,10 @@
   color: #c9d1d9;
 }
 
+:root {
+  --secundary-color: #5d3fd3;
+}
+
 button {
   border: 0;
   cursor: pointer;

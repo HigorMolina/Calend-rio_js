@@ -1,3 +1,7 @@
+import { getYears } from "../features/calendar.js";
+
+import { getSecundaryColor } from "../utils/css.variables.js";
+
 import Dot from "./dot.js";
 
 export function YearsDots(buttonColor, buttonHover) {
@@ -6,22 +10,25 @@ export function YearsDots(buttonColor, buttonHover) {
   const section = document.createElement("section");
 
   section.style.cssText = `
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 1em;
     overflow-y: auto;
   `;
 
-  // Pegandos os proximos 9 anos
+  const years = getYears();
 
-  let years = [];
+  const actualYear = new Date().getFullYear();
 
-  for (let index = 0; index <= 9; index++) {
-    years.push(new Date().getFullYear() + index);
-  }
+  years.forEach((year) => {
+    const isActive = year === actualYear;
 
-  years.forEach((el) => {
-    const dot = Dot(el, buttonColor, buttonHover);
+    const dot = Dot(
+      year,
+      isActive ? getSecundaryColor() : buttonColor,
+      isActive ? buttonColor : buttonHover,
+      true,
+    );
 
     section.appendChild(dot);
   });
