@@ -1,12 +1,14 @@
 import Panel from "./components/panel.js";
 
+import { YearsDots } from "./components/years.js";
 import { MonthsDots } from "./components/months.js";
+import { DaysDots } from "./components/days.js";
 
 const now = new Date();
 
 const panelsData = [
   {
-    id: "panel-ano",
+    id: "panel-anos",
     title: "Anos",
     bg: "#013a63",
     colorHover: "#014f86",
@@ -24,18 +26,20 @@ const panelsData = [
     bg: "#014f86",
     colorHover: "#2a6f97",
   },
-  {
-    id: "panel-horario",
-    title: now.getDay(),
-    bg: "#2a6f97",
-    colorHover: "#468faf",
-  },
+  // {
+  //   id: "panel-horario",
+  //   title: now.getDay(),
+  //   bg: "#2a6f97",
+  //   colorHover: "#468faf",
+  // },
 ];
 
-const body = document.querySelector("body");
+const main = document.querySelector("main");
 
 panelsData.forEach((el) =>
-  body.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el?.canBack)),
+  main.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el?.canBack)),
 );
 
+YearsDots();
 MonthsDots();
+DaysDots();

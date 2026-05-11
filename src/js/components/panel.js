@@ -11,7 +11,8 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
   gap: 2em;
   flex: 1;
   padding: 1em;
-  background-color: ${bg}
+  background-color: ${bg};
+  height: 100%;
   `;
 
   const header = document.createElement("header");
@@ -21,6 +22,7 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
     gap:1em;
     align-items: center;
     justify-content: space-between;
+    height:50px
   `;
 
   if (!canBack) {
@@ -30,7 +32,6 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
 
     p.style.cssText = `
     font-size: 24px;
-    font-weight: semi-bold;
     `;
 
     header.appendChild(p);

@@ -51,7 +51,6 @@ export function ButtonLeave(id, title, hoverColor, callback) {
   btn.style.cssText = `
     cursor: pointer;
     font-size: 24px;
-    font-weight: semi-bold;
     background-color: transparent;
     border: 0;
     padding: 8px;
