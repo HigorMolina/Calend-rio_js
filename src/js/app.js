@@ -10,36 +10,37 @@ const panelsData = [
   {
     id: "panel-anos",
     title: "Anos",
-    bg: "#013a63",
-    colorHover: "#014f86",
+    bg: "#121212",
+    buttonColor: "#1E1E1E",
+    colorHover: "#282828",
     canBack: false,
   },
   {
     id: "panel-meses",
     title: now.getFullYear(),
-    bg: "#01497c",
-    colorHover: "#2a6f97",
+    bg: "#181818",
+    buttonColor: "#222222",
+    colorHover: "#2F2F2F",
   },
   {
     id: "panel-dias",
     title: now.toLocaleString("pt-BR", { month: "long" }),
-    bg: "#014f86",
-    colorHover: "#2a6f97",
+    bg: "#1F1F1F",
+    buttonColor: "#2A2A2A",
+    colorHover: "#383838",
   },
-  // {
-  //   id: "panel-horario",
-  //   title: now.getDay(),
-  //   bg: "#2a6f97",
-  //   colorHover: "#468faf",
-  // },
 ];
 
 const main = document.querySelector("main");
 
 panelsData.forEach((el) =>
-  main.appendChild(Panel(el.id, el.title, el.bg, el.colorHover, el?.canBack)),
+  main.appendChild(
+    Panel(el.id, el.title, el.bg, el.buttonColor, el.colorHover, el?.canBack),
+  ),
 );
 
-YearsDots();
-MonthsDots();
-DaysDots();
+YearsDots("#1E1E1E", "#282828");
+
+MonthsDots("#222222", "#2F2F2F");
+
+DaysDots("#2A2A2A", "#383838");

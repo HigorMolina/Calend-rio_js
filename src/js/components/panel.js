@@ -1,6 +1,13 @@
 import { ButtonUpBack, ButtonLeave } from "./button.js";
 
-export default function Panel(id, title, bg, hoverColor, canBack = true) {
+export default function Panel(
+  id,
+  title,
+  bg,
+  buttonColor,
+  hoverColor,
+  canBack = true,
+) {
   const panel = document.createElement("div");
 
   panel.id = id;
@@ -30,8 +37,10 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
 
     p.textContent = title;
 
+    p.classList.add("button-leave");
+
     p.style.cssText = `
-    font-size: 24px;
+    background-color: ${buttonColor};
     `;
 
     header.appendChild(p);
@@ -44,7 +53,7 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
   const section = document.createElement("section");
 
   header.appendChild(
-    ButtonLeave(`${title}-leave`, title, hoverColor, () =>
+    ButtonLeave(`${title}-leave`, title, buttonColor, hoverColor, () =>
       console.log("leave"),
     ),
   );
@@ -60,12 +69,14 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
     {
       id: `${title}-up`,
       type: "up",
+      buttonColor,
       hoverColor,
       callback: () => console.log("apertei up"),
     },
     {
       id: `${title}-down`,
       type: "down",
+      buttonColor,
       hoverColor,
       callback: () => console.log("apertei down"),
     },
@@ -76,6 +87,7 @@ export default function Panel(id, title, bg, hoverColor, canBack = true) {
       ButtonUpBack(
         btnData.id,
         btnData.type,
+        btnData.buttonColor,
         btnData.hoverColor,
         btnData.callback,
       ),

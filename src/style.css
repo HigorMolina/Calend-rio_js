@@ -7,8 +7,8 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-weight: 500;
-  color: #fff;
+  font-weight: 700;
+  color: #c9d1d9;
 }
 
 button {
@@ -20,11 +20,11 @@ button {
 
 body {
   display: flex;
-  background-color: #012a4a;
+  background-color: #0a0a0a;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0;
 }
-
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -46,10 +46,11 @@ body {
   transition: all 0.5s;
   padding: 12px;
   border-radius: 0.5em;
+  background-color: #1e1e1e;
 }
 
 .main-header ul li button:hover {
-  background-color: #014f86;
+  background-color: #282828;
 }
 
 main {
@@ -57,4 +58,25 @@ main {
   display: flex;
   height: 0;
   align-items: start;
+  border-radius: 2em 2em 0 0;
+  overflow: hidden;
+}
+
+.button-leave {
+  font-size: 24px;
+  padding: 8px;
+  display: flex;
+  border-radius: 8px;
+  flex: 1;
+  transition: all 0.5s;
+}
+
+.button-up-down {
+  padding: 1em;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.5s;
 }

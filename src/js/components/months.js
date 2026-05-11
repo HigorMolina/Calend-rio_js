@@ -2,7 +2,7 @@ import { getMonths } from "../features/calendar.js";
 
 import Dot from "./dot.js";
 
-export function MonthsDots() {
+export function MonthsDots(buttonColor, buttonHover) {
   const panelMeses = document.getElementById("panel-meses");
   const meses = getMonths();
 
@@ -16,7 +16,7 @@ export function MonthsDots() {
   `;
 
   meses.forEach((el) => {
-    const dot = Dot(el, "#2a6f97");
+    const dot = Dot(el, buttonColor, buttonHover);
 
     section.appendChild(dot);
   });

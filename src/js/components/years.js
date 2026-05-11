@@ -1,6 +1,6 @@
 import Dot from "./dot.js";
 
-export function YearsDots() {
+export function YearsDots(buttonColor, buttonHover) {
   const panelAno = document.getElementById("panel-anos");
 
   const section = document.createElement("section");
@@ -21,7 +21,7 @@ export function YearsDots() {
   }
 
   years.forEach((el) => {
-    const dot = Dot(el, "#2a6f97");
+    const dot = Dot(el, buttonColor, buttonHover);
 
     section.appendChild(dot);
   });

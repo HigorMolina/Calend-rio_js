@@ -1,4 +1,4 @@
-export default function Dot(title, hoverColor) {
+export default function Dot(title, buttonColor, hoverColor) {
   // TODO: MUDAR PARA BUTTON
   const dot = document.createElement("div");
 
@@ -6,6 +6,7 @@ export default function Dot(title, hoverColor) {
 
   dot.style.cssText = `
     display: flex;
+    background-color: ${buttonColor};
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -21,7 +22,7 @@ export default function Dot(title, hoverColor) {
   });
 
   dot.addEventListener("mouseleave", () => {
-    dot.style.backgroundColor = "transparent";
+    dot.style.backgroundColor = buttonColor;
   });
 
   return dot;

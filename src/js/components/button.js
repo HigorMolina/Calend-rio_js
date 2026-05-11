@@ -1,4 +1,4 @@
-export function ButtonUpBack(id, type, hoverColor, callback) {
+export function ButtonUpBack(id, type, buttonColor, hoverColor, callback) {
   const icon = document.createElement("i");
 
   switch (type) {
@@ -14,17 +14,10 @@ export function ButtonUpBack(id, type, hoverColor, callback) {
 
   btn.id = id;
 
+  btn.classList.add("button-up-down");
+
   btn.style.cssText = `
-    background-color: transparent;
-    border: 0;
-    padding: 1em;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: all 0.5s;
-    cursor: pointer;
+    background-color: ${buttonColor};
   `;
 
   btn.appendChild(icon);
@@ -36,28 +29,21 @@ export function ButtonUpBack(id, type, hoverColor, callback) {
   });
 
   btn.addEventListener("mouseleave", () => {
-    btn.style.backgroundColor = "transparent";
+    btn.style.backgroundColor = buttonColor;
   });
 
   return btn;
 }
 
-export function ButtonLeave(id, title, hoverColor, callback) {
+export function ButtonLeave(id, title, buttonColor, hoverColor, callback) {
   const btn = document.createElement("button");
 
   btn.id = id;
   btn.textContent = title;
 
+  btn.classList.add("button-leave");
   btn.style.cssText = `
-    cursor: pointer;
-    font-size: 24px;
-    background-color: transparent;
-    border: 0;
-    padding: 8px;
-    display: flex;
-    border-radius: 8px;
-    flex: 1;
-    transition: all 0.5s;
+    background-color: ${buttonColor};
   `;
 
   btn.addEventListener("click", () => callback());
@@ -67,7 +53,7 @@ export function ButtonLeave(id, title, hoverColor, callback) {
   });
 
   btn.addEventListener("mouseleave", () => {
-    btn.style.backgroundColor = "transparent";
+    btn.style.backgroundColor = buttonColor;
   });
 
   return btn;

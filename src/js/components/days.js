@@ -1,6 +1,6 @@
 import Dot from "./dot.js";
 
-export function DaysDots() {
+export function DaysDots(buttonColor, buttonHover) {
   const panelDays = document.getElementById("panel-dias");
 
   const section = document.createElement("section");
@@ -16,7 +16,7 @@ export function DaysDots() {
   const date = new Date(5, 2026, 0);
 
   for (let index = 1; index <= date.getDate(); index++) {
-    const dot = Dot(index, "#2a6f97");
+    const dot = Dot(index, buttonColor, buttonHover);
     section.appendChild(dot);
   }
 
