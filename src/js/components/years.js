@@ -1,4 +1,4 @@
-import { getYears } from "../features/calendar.js";
+import { Years } from "../features/calendar.js";
 
 import { getSecundaryColor } from "../utils/css.variables.js";
 
@@ -16,7 +16,7 @@ export function YearsDots(buttonColor, buttonHover) {
     overflow-y: auto;
   `;
 
-  const years = getYears();
+  const years = Years.getYears();
 
   const actualYear = new Date().getFullYear();
 
@@ -29,6 +29,8 @@ export function YearsDots(buttonColor, buttonHover) {
       isActive ? buttonColor : buttonHover,
       true,
     );
+
+    dot.addEventListener("click", () => Years.postYear(year));
 
     section.appendChild(dot);
   });

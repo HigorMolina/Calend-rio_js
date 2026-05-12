@@ -17,14 +17,14 @@ const panelsData = [
   },
   {
     id: "panel-meses",
-    title: now.getFullYear(),
+    title: "month-boostrap",
     bg: "#181818",
     buttonColor: "#222222",
     colorHover: "#2F2F2F",
   },
   {
     id: "panel-dias",
-    title: now.toLocaleString("pt-BR", { month: "long" }),
+    title: "days-boostrap",
     bg: "#1F1F1F",
     buttonColor: "#2A2A2A",
     colorHover: "#383838",
@@ -41,6 +41,6 @@ panelsData.forEach((el) =>
 
 YearsDots("#1E1E1E", "#282828");
 
-MonthsDots("#222222", "#2F2F2F");
+// MonthsDots("#222222", "#2F2F2F");
 
-DaysDots("#2A2A2A", "#383838");
+// DaysDots("#2A2A2A", "#383838");

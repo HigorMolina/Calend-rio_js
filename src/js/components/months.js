@@ -4,11 +4,16 @@ import { getSecundaryColor } from "../utils/css.variables.js";
 
 import Dot from "./dot.js";
 
-export function MonthsDots(buttonColor, buttonHover) {
+export function MonthsDots(year, buttonColor, buttonHover) {
   const panelMeses = document.getElementById("panel-meses");
+  const title = panelMeses.querySelector("header button");
   const meses = getMonths();
 
+  title.textContent = year;
+
   const section = document.createElement("section");
+
+  section.id = "dots-meses";
 
   section.style.cssText = `
     display: flex;
@@ -18,9 +23,10 @@ export function MonthsDots(buttonColor, buttonHover) {
   `;
 
   const actualMonth = new Date().getMonth();
+  const actualYear = new Date().getFullYear();
 
   meses.forEach((el, i) => {
-    const isActive = i == actualMonth;
+    const isActive = i == actualMonth && year == actualYear;
 
     const dot = Dot(
       el,
@@ -31,5 +37,12 @@ export function MonthsDots(buttonColor, buttonHover) {
     section.appendChild(dot);
   });
 
-  panelMeses.appendChild(section);
+  const oldSection = panelMeses.querySelector("#dots-meses");
+
+  if (oldSection) {
+    panelMeses.replaceChild(section, oldSection);
+  } else {
+    panelMeses.appendChild(section);
+    panelMeses.classList.toggle("hide");
+  }
 }

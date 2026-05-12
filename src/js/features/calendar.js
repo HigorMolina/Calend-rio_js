@@ -1,11 +1,21 @@
-export function getYears() {
-  let years = [];
+import { MonthsDots } from "../components/months.js";
 
-  for (let index = 0; index <= 19; index++) {
-    years.push(new Date().getFullYear() + index);
+export class Years {
+  static getYears() {
+    let years = [];
+
+    for (let index = 0; index <= 19; index++) {
+      years.push(new Date().getFullYear() + index);
+    }
+
+    return years;
   }
 
-  return years;
+  static postYear(year) {
+    const panelMeses = document.getElementById("panel-meses");
+
+    MonthsDots(year, "#222222", "#2F2F2F");
+  }
 }
 
 export function getMonths() {

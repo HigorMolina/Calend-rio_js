@@ -84,3 +84,17 @@ main {
   border-radius: 6px;
   transition: all 0.5s;
 }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  flex: 1;
+  padding: 1em;
+  height: 100%;
+  transition: all 0.15s ease-in-out;
+}
+
+.panel.hide {
+  transform: translateY(100%);
+}

@@ -12,15 +12,9 @@ export default function Panel(
 
   panel.id = id;
 
-  panel.style.cssText = `
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  flex: 1;
-  padding: 1em;
-  background-color: ${bg};
-  height: 100%;
-  `;
+  panel.classList.add("panel");
+
+  panel.style.backgroundColor = bg;
 
   const header = document.createElement("header");
 
@@ -48,6 +42,8 @@ export default function Panel(
     panel.appendChild(header);
 
     return panel;
+  } else {
+    panel.classList.toggle("hide");
   }
 
   const section = document.createElement("section");
