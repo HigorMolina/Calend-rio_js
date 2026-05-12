@@ -13,6 +13,7 @@
 
 :root {
   --secundary-color: #5d3fd3;
+  --third-color: #0f52ba;
 }
 
 button {
@@ -92,9 +93,24 @@ main {
   flex: 1;
   padding: 1em;
   height: 100%;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .panel.hide {
   transform: translateY(100%);
+}
+
+.dot {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border-radius: 0.5em;
+  font-size: 20px;
+  transition: all 0.25s ease-in-out;
+}
+
+.dot.selected {
+  background-color: var(--third-color) !important;
 }

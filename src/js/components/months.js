@@ -1,13 +1,19 @@
-import { getMonths } from "../features/calendar.js";
+import { YearsDots } from "./years.js";
 
 import { getSecundaryColor } from "../utils/css.variables.js";
 
+import { Months } from "../features/calendar.js";
+
 import Dot from "./dot.js";
 
-export function MonthsDots(year, buttonColor, buttonHover) {
+export function MonthsDots(year) {
+  const buttonColor = "#222222";
+  const buttonHover = "#2F2F2F";
+
   const panelMeses = document.getElementById("panel-meses");
-  const title = panelMeses.querySelector("header button");
-  const meses = getMonths();
+  const title = document.getElementById("panel-meses-leave");
+
+  const meses = Months.getMonths();
 
   title.textContent = year;
 
@@ -29,10 +35,13 @@ export function MonthsDots(year, buttonColor, buttonHover) {
     const isActive = i == actualMonth && year == actualYear;
 
     const dot = Dot(
+      `dot-month-${i}`,
       el,
       isActive ? getSecundaryColor() : buttonColor,
       isActive ? buttonColor : buttonHover,
     );
+
+    dot.addEventListener("click", () => Months.postMonth(i));
 
     section.appendChild(dot);
   });

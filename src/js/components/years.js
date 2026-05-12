@@ -1,11 +1,15 @@
 import { Years } from "../features/calendar.js";
 
 import { getSecundaryColor } from "../utils/css.variables.js";
+import { getThirdColor } from "../utils/css.variables.js";
 
 import Dot from "./dot.js";
 
-export function YearsDots(buttonColor, buttonHover) {
-  const panelAno = document.getElementById("panel-anos");
+export function YearsDots() {
+  const buttonColor = "#1E1E1E";
+  const buttonHover = "#282828";
+
+  const panelAnos = document.getElementById("panel-anos");
 
   const section = document.createElement("section");
 
@@ -22,8 +26,8 @@ export function YearsDots(buttonColor, buttonHover) {
 
   years.forEach((year) => {
     const isActive = year === actualYear;
-
     const dot = Dot(
+      `dot-year-${year}`,
       year,
       isActive ? getSecundaryColor() : buttonColor,
       isActive ? buttonColor : buttonHover,
@@ -35,5 +39,5 @@ export function YearsDots(buttonColor, buttonHover) {
     section.appendChild(dot);
   });
 
-  panelAno.appendChild(section);
+  panelAnos.appendChild(section);
 }

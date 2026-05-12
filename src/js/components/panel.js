@@ -49,7 +49,7 @@ export default function Panel(
   const section = document.createElement("section");
 
   header.appendChild(
-    ButtonLeave(`${title}-leave`, title, buttonColor, hoverColor, () =>
+    ButtonLeave(`${id}-leave`, title, buttonColor, hoverColor, () =>
       console.log("leave"),
     ),
   );

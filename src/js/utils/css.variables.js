@@ -7,3 +7,9 @@ export function getSecundaryColor() {
 
   return secundaryColor;
 }
+
+export function getThirdColor() {
+  const thirdColor = rootStyles.getPropertyValue("--third-color").trim();
+
+  return thirdColor;
+}

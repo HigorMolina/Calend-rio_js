@@ -12,9 +12,60 @@ export class Years {
   }
 
   static postYear(year) {
-    const panelMeses = document.getElementById("panel-meses");
+    const currentSelected = document.querySelector(
+      '[id^="dot-year-"].selected',
+    );
 
-    MonthsDots(year, "#222222", "#2F2F2F");
+    if (currentSelected) {
+      currentSelected.classList.remove("selected");
+    }
+
+    const nextDot = document.getElementById(`dot-year-${year}`);
+
+    if (nextDot) {
+      nextDot.classList.add("selected");
+      MonthsDots(year);
+    }
+  }
+}
+
+export class Months {
+  static getMonths() {
+    const meses = [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ];
+
+    return meses;
+  }
+
+  static postMonth(month) {
+    const currentSelected = document.querySelector(
+      '[id^="dot-month-"].selected',
+    );
+
+    if (currentSelected) {
+      currentSelected.classList.remove("selected");
+    }
+
+    const nextDot = document.getElementById(`dot-month-${month}`);
+
+    if (nextDot) {
+      nextDot.classList.add("selected");
+
+      // TODO: NÃO PASSAR ESSE YEAR
+      MonthsDots(year);
+    }
   }
 }
 
