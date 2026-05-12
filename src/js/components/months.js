@@ -28,8 +28,10 @@ export function MonthsDots(year) {
     overflow-y: auto;
   `;
 
-  const actualMonth = new Date().getMonth();
-  const actualYear = new Date().getFullYear();
+  const date = new Date();
+
+  const actualMonth = date.getMonth();
+  const actualYear = date.getFullYear();
 
   meses.forEach((el, i) => {
     const isActive = i == actualMonth && year == actualYear;

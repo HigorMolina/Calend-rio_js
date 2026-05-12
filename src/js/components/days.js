@@ -2,10 +2,21 @@ import Dot from "./dot.js";
 
 import { getSecundaryColor } from "../utils/css.variables.js";
 
-export function DaysDots(buttonColor, buttonHover) {
+import { Days } from "../features/calendar.js";
+
+export function DaysDots(month, monthNumber) {
+  const buttonColor = "#2A2A2A";
+  const buttonHover = "#383838";
+
   const panelDays = document.getElementById("panel-dias");
 
+  const title = document.getElementById("panel-dias-leave");
+
+  title.textContent = month;
+
   const section = document.createElement("section");
+
+  section.id = "dots-dias";
 
   section.style.cssText = `
     display: grid;
@@ -14,22 +25,45 @@ export function DaysDots(buttonColor, buttonHover) {
     overflow-y: auto;
   `;
 
+  const selectedYear = Number(
+    document.getElementById("panel-meses-leave").textContent,
+  );
+
   // mudar para dinamico
-  const date = new Date(5, 2026, 0);
+  const days = Days.getDays(selectedYear, monthNumber);
 
-  const actualDay = new Date().getDate();
+  const date = new Date();
 
-  for (let index = 1; index <= date.getDate(); index++) {
-    const isActive = index == actualDay;
+  const actualYear = date.getFullYear();
+
+  const actualDay = date.getDate();
+
+  const actualMonth = date.getMonth();
+
+  for (let index = 1; index <= days; index++) {
+    const isActive =
+      index == actualDay &&
+      selectedYear == actualYear &&
+      monthNumber == actualMonth;
 
     const dot = Dot(
+      `dot-day-${index}`,
       index,
       isActive ? getSecundaryColor() : buttonColor,
       isActive ? buttonColor : buttonHover,
     );
 
+    dot.addEventListener("click", () => Days.postDay(index));
+
     section.appendChild(dot);
   }
 
-  panelDays.appendChild(section);
+  const oldSection = panelDays.querySelector("#dots-dias");
+
+  if (oldSection) {
+    panelDays.replaceChild(section, oldSection);
+  } else {
+    panelDays.appendChild(section);
+    panelDays.classList.toggle("hide");
+  }
 }

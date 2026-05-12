@@ -40,7 +40,3 @@ panelsData.forEach((el) =>
 );
 
 YearsDots();
-
-// MonthsDots("#222222", "#2F2F2F");
-
-// DaysDots("#2A2A2A", "#383838");

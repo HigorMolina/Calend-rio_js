@@ -1,4 +1,5 @@
 import { MonthsDots } from "../components/months.js";
+import { DaysDots } from "../components/days.js";
 
 export class Years {
   static getYears() {
@@ -24,8 +25,9 @@ export class Years {
 
     if (nextDot) {
       nextDot.classList.add("selected");
-      MonthsDots(year);
     }
+
+    MonthsDots(year);
   }
 }
 
@@ -62,34 +64,32 @@ export class Months {
 
     if (nextDot) {
       nextDot.classList.add("selected");
-
-      // TODO: NÃO PASSAR ESSE YEAR
-      MonthsDots(year);
     }
+
+    DaysDots(this.getMonths()[month], month);
   }
 }
 
-export function getMonths() {
-  const meses = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ];
+export class Days {
+  static getDays(year, month) {
+    const date = new Date(year, month + 1, 0);
 
-  return meses;
-}
+    console.log(date.getDate());
 
-export function getDays(year, month) {
-  const date = new Date(month, year, 0);
+    return date.getDate();
+  }
 
-  return date.getDate();
+  static postDay(day) {
+    const currentSelected = document.querySelector('[id^="dot-day-"].selected');
+
+    if (currentSelected) {
+      currentSelected.classList.remove("selected");
+    }
+
+    const nextDot = document.getElementById(`dot-day-${day}`);
+
+    if (nextDot) {
+      nextDot.classList.add("selected");
+    }
+  }
 }
