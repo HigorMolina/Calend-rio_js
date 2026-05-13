@@ -114,3 +114,132 @@ main {
 .dot.selected {
   background-color: var(--third-color) !important;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 1.5rem;
+  z-index: 999;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-card {
+  width: min(520px, 100%);
+  border-radius: 1rem;
+  background: #111111;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.modal-card--wide {
+  width: min(720px, 100%);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #161616;
+}
+
+.modal-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: #c9d1d9;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.modal-date {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.modal-body label {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-body input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #2c2c2c;
+  background: #1f1f1f;
+  color: #c9d1d9;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.modal-button {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  background: #2f2f2f;
+  color: #c9d1d9;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background: #3d3d3d;
+}
+
+.modal-cancel {
+  background: #1b1b1b;
+}
+
+.modal-list-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.appointment-item {
+  padding: 1rem;
+  border-radius: 0.9rem;
+  background: #141414;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.appointment-item strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.appointment-item span {
+  font-size: 0.9rem;
+  color: #9aa5b1;
+}

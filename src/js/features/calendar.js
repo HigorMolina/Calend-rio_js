@@ -1,3 +1,4 @@
+import Header from "../components/header.js";
 import { MonthsDots } from "../components/months.js";
 import { DaysDots } from "../components/days.js";
 
@@ -91,5 +92,15 @@ export class Days {
     if (nextDot) {
       nextDot.classList.add("selected");
     }
+
+    const selectedYear = document.getElementById("panel-meses-leave").textContent;
+    const selectedMonthName = document.getElementById("panel-dias-leave").textContent;
+
+    Header.openAppointmentModal({
+      year: selectedYear,
+      monthName: selectedMonthName,
+      month: selectedMonthName,
+      day,
+    });
   }
 }

@@ -1,3 +1,4 @@
+import Header from "./components/header.js";
 import Panel from "./components/panel.js";
 
 import { YearsDots } from "./components/years.js";
@@ -32,6 +33,8 @@ const panelsData = [
 ];
 
 const main = document.querySelector("main");
+
+Header.init();
 
 panelsData.forEach((el) =>
   main.appendChild(
