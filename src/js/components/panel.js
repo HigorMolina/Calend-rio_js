@@ -7,17 +7,16 @@ export default function Panel(
   buttonColor,
   hoverColor,
   canBack = true,
+  callbacks = {},
 ) {
+  const { onLeave, onUp, onDown } = callbacks;
+
   const panel = document.createElement("div");
-
   panel.id = id;
-
   panel.classList.add("panel");
-
   panel.style.backgroundColor = bg;
 
   const header = document.createElement("header");
-
   header.style.cssText = `
     display: flex;
     gap:1em;
@@ -28,73 +27,48 @@ export default function Panel(
 
   if (!canBack) {
     const p = document.createElement("p");
-
     p.textContent = title;
-
     p.classList.add("button-leave");
-
     p.style.cssText = `
-    background-color: ${buttonColor};
+      background-color: ${buttonColor};
     `;
-
     header.appendChild(p);
-
-    panel.appendChild(header);
-
-    return panel;
   } else {
     panel.classList.toggle("hide");
+    header.appendChild(
+      ButtonLeave(`${id}-leave`, title, buttonColor, hoverColor, () => {
+        if (onLeave) {
+          onLeave();
+        } else {
+          panel.classList.add("hide");
+        }
+      }),
+    );
   }
 
-  const section = document.createElement("section");
+  if (onUp || onDown) {
+    const buttonGroup = document.createElement("div");
+    buttonGroup.style.cssText = `
+      display: flex;
+      gap: 1em;
+    `;
 
-  header.appendChild(
-    ButtonLeave(`${id}-leave`, title, buttonColor, hoverColor, () =>
-      console.log("leave"),
-    ),
-  );
+    if (onUp) {
+      buttonGroup.appendChild(
+        ButtonUpBack(`${id}-up`, "up", buttonColor, hoverColor, onUp),
+      );
+    }
 
-  const buttonGroup = document.createElement("div");
+    if (onDown) {
+      buttonGroup.appendChild(
+        ButtonUpBack(`${id}-down`, "down", buttonColor, hoverColor, onDown),
+      );
+    }
 
-  buttonGroup.style.cssText = `
-    display: flex;
-    gap: 1em;
-  `;
+    header.appendChild(buttonGroup);
+  }
 
-  const upDownData = [
-    {
-      id: `${title}-up`,
-      type: "up",
-      buttonColor,
-      hoverColor,
-      callback: () => console.log("apertei up"),
-    },
-    {
-      id: `${title}-down`,
-      type: "down",
-      buttonColor,
-      hoverColor,
-      callback: () => console.log("apertei down"),
-    },
-  ];
-
-  upDownData.forEach((btnData) => {
-    buttonGroup.appendChild(
-      ButtonUpBack(
-        btnData.id,
-        btnData.type,
-        btnData.buttonColor,
-        btnData.hoverColor,
-        btnData.callback,
-      ),
-    );
-  });
-
-  header.appendChild(buttonGroup);
-
-  section.appendChild(header);
-
-  panel.appendChild(section);
+  panel.appendChild(header);
 
   return panel;
 }

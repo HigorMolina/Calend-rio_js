@@ -4,8 +4,30 @@ import Panel from "./components/panel.js";
 import { YearsDots } from "./components/years.js";
 import { MonthsDots } from "./components/months.js";
 import { DaysDots } from "./components/days.js";
+import { Years, Months, Days } from "./features/calendar.js";
 
 const now = new Date();
+
+const main = document.querySelector("main");
+
+function hidePanel(id) {
+  const panel = document.getElementById(id);
+  if (panel) panel.classList.add("hide");
+}
+
+function showPanel(id) {
+  const panel = document.getElementById(id);
+  if (panel) panel.classList.remove("hide");
+}
+
+function closeMonthsAndDays() {
+  hidePanel("panel-dias");
+  hidePanel("panel-meses");
+}
+
+function closeDays() {
+  hidePanel("panel-dias");
+}
 
 const panelsData = [
   {
@@ -22,6 +44,11 @@ const panelsData = [
     bg: "#181818",
     buttonColor: "#222222",
     colorHover: "#2F2F2F",
+    callbacks: {
+      onLeave: closeMonthsAndDays,
+      onUp: () => Years.navigateYear("up"),
+      onDown: () => Years.navigateYear("down"),
+    },
   },
   {
     id: "panel-dias",
@@ -29,16 +56,27 @@ const panelsData = [
     bg: "#1F1F1F",
     buttonColor: "#2A2A2A",
     colorHover: "#383838",
+    callbacks: {
+      onLeave: closeDays,
+      onUp: () => Months.navigateMonth("up"),
+      onDown: () => Months.navigateMonth("down"),
+    },
   },
 ];
-
-const main = document.querySelector("main");
 
 Header.init();
 
 panelsData.forEach((el) =>
   main.appendChild(
-    Panel(el.id, el.title, el.bg, el.buttonColor, el.colorHover, el?.canBack),
+    Panel(
+      el.id,
+      el.title,
+      el.bg,
+      el.buttonColor,
+      el.colorHover,
+      el?.canBack,
+      el.callbacks,
+    ),
   ),
 );
 

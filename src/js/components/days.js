@@ -64,6 +64,7 @@ export function DaysDots(month, monthNumber) {
     panelDays.replaceChild(section, oldSection);
   } else {
     panelDays.appendChild(section);
-    panelDays.classList.toggle("hide");
   }
+
+  panelDays.classList.remove("hide");
 }

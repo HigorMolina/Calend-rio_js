@@ -54,6 +54,7 @@ export function MonthsDots(year) {
     panelMeses.replaceChild(section, oldSection);
   } else {
     panelMeses.appendChild(section);
-    panelMeses.classList.toggle("hide");
   }
+
+  panelMeses.classList.remove("hide");
 }

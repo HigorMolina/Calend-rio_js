@@ -13,6 +13,14 @@ export class Years {
     return years;
   }
 
+  static getSelectedYear() {
+    const selected = document.querySelector('[id^="dot-year-"].selected');
+    if (selected) {
+      return Number(selected.id.replace("dot-year-", ""));
+    }
+    return new Date().getFullYear();
+  }
+
   static postYear(year) {
     const currentSelected = document.querySelector(
       '[id^="dot-year-"].selected',
@@ -29,6 +37,21 @@ export class Years {
     }
 
     MonthsDots(year);
+    document.getElementById("panel-dias")?.classList.add("hide");
+  }
+
+  static navigateYear(direction) {
+    const years = this.getYears();
+    const currentYear = this.getSelectedYear();
+    const currentIndex = years.indexOf(currentYear);
+    const nextIndex =
+      direction === "down"
+        ? Math.min(currentIndex + 1, years.length - 1)
+        : Math.max(currentIndex - 1, 0);
+
+    if (nextIndex !== currentIndex) {
+      this.postYear(years[nextIndex]);
+    }
   }
 }
 
@@ -52,6 +75,14 @@ export class Months {
     return meses;
   }
 
+  static getSelectedMonthIndex() {
+    const selected = document.querySelector('[id^="dot-month-"].selected');
+    if (selected) {
+      return Number(selected.id.replace("dot-month-", ""));
+    }
+    return new Date().getMonth();
+  }
+
   static postMonth(month) {
     const currentSelected = document.querySelector(
       '[id^="dot-month-"].selected',
@@ -69,6 +100,20 @@ export class Months {
 
     DaysDots(this.getMonths()[month], month);
   }
+
+  static navigateMonth(direction) {
+    const months = this.getMonths();
+    const currentIndex = this.getSelectedMonthIndex();
+    const nextIndex =
+      direction === "down"
+        ? Math.min(currentIndex + 1, months.length - 1)
+        : Math.max(currentIndex - 1, 0);
+
+    if (nextIndex !== currentIndex) {
+      this.postMonth(nextIndex);
+      document.getElementById("panel-dias")?.classList.remove("hide");
+    }
+  }
 }
 
 export class Days {
@@ -78,6 +123,22 @@ export class Days {
     console.log(date.getDate());
 
     return date.getDate();
+  }
+
+  static getSelectedDay() {
+    const selected = document.querySelector('[id^="dot-day-"].selected');
+    if (selected) {
+      return Number(selected.id.replace("dot-day-", ""));
+    }
+    return 1;
+  }
+
+  static getSelectedMonthIndex() {
+    const selected = document.querySelector('[id^="dot-month-"].selected');
+    if (selected) {
+      return Number(selected.id.replace("dot-month-", ""));
+    }
+    return new Date().getMonth();
   }
 
   static postDay(day) {
@@ -93,8 +154,12 @@ export class Days {
       nextDot.classList.add("selected");
     }
 
-    const selectedYear = document.getElementById("panel-meses-leave").textContent;
-    const selectedMonthName = document.getElementById("panel-dias-leave").textContent;
+    const selectedYear = Number(
+      document.getElementById("panel-meses-leave")?.textContent ||
+        new Date().getFullYear(),
+    );
+    const selectedMonthName =
+      document.getElementById("panel-dias-leave")?.textContent || "";
 
     Header.openAppointmentModal({
       year: selectedYear,
@@ -102,5 +167,24 @@ export class Days {
       month: selectedMonthName,
       day,
     });
+  }
+
+  static navigateDay(direction) {
+    const selectedYear = Number(
+      document.getElementById("panel-meses-leave")?.textContent ||
+        new Date().getFullYear(),
+    );
+    const selectedMonth = this.getSelectedMonthIndex();
+    const currentDay = this.getSelectedDay();
+    const maxDay = this.getDays(selectedYear, selectedMonth);
+
+    const nextDay =
+      direction === "down"
+        ? Math.min(currentDay + 1, maxDay)
+        : Math.max(currentDay - 1, 1);
+
+    if (nextDay !== currentDay) {
+      this.postDay(nextDay);
+    }
   }
 }
