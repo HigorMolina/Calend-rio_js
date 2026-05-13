@@ -62,9 +62,10 @@ main {
   flex-grow: 1;
   display: flex;
   height: 0;
-  align-items: start;
+  align-items: stretch;
   border-radius: 2em 2em 0 0;
   overflow: hidden;
+  gap: 0;
 }
 
 .button-leave {
@@ -90,14 +91,30 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2em;
-  flex: 1;
+  width: 320px;
+  flex-shrink: 0;
   padding: 1em;
   height: 100%;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
 }
 
 .panel.hide {
   transform: translateY(100%);
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-section img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .dot {

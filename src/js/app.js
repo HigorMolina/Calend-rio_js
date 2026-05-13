@@ -80,4 +80,14 @@ panelsData.forEach((el) =>
   ),
 );
 
+// Create image section
+const imageSection = document.createElement("div");
+imageSection.className = "image-section";
+const img = document.createElement("img");
+img.src =
+  "https://fateccampinas.com.br/portal/wp-content/uploads/2026/03/Logo_Fatec.png";
+img.alt = "Calendário";
+imageSection.appendChild(img);
+main.appendChild(imageSection);
+
 YearsDots();

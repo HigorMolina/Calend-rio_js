@@ -6,7 +6,7 @@ export class Years {
   static getYears() {
     let years = [];
 
-    for (let index = 0; index <= 19; index++) {
+    for (let index = 0; index <= 9; index++) {
       years.push(new Date().getFullYear() + index);
     }
 
