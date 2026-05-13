@@ -16,6 +16,7 @@ let appointmentsListOverlay;
 let appointmentForm;
 let appointmentListContainer;
 let selectedDateLabel;
+let editingAppointmentId = null;
 
 function init() {
   const header = document.querySelector(".main-header");
@@ -53,6 +54,7 @@ function createModals() {
           Fim
           <input type="time" name="endTime" />
         </label>
+        <p class="modal-warning" style="color: #ff6b6b; display: none;"></p>
       </div>
       <footer class="modal-actions">
         <button class="modal-button modal-cancel" type="button">Cancelar</button>
@@ -80,20 +82,32 @@ function createModals() {
   document.body.appendChild(appointmentsListOverlay);
 
   appointmentForm = appointmentFormOverlay.querySelector(".modal-card");
-  appointmentListContainer = appointmentsListOverlay.querySelector(".modal-list");
+  appointmentListContainer =
+    appointmentsListOverlay.querySelector(".modal-list");
   selectedDateLabel = appointmentFormOverlay.querySelector(".modal-date");
 
-  appointmentFormOverlay.querySelector(".modal-close").addEventListener("click", closeModals);
-  appointmentFormOverlay.querySelector(".modal-cancel").addEventListener("click", closeModals);
-  appointmentFormOverlay.querySelector(".modal-save").addEventListener("click", saveAppointment);
+  appointmentFormOverlay
+    .querySelector(".modal-close")
+    .addEventListener("click", closeModals);
+  appointmentFormOverlay
+    .querySelector(".modal-cancel")
+    .addEventListener("click", closeModals);
+  appointmentFormOverlay
+    .querySelector(".modal-save")
+    .addEventListener("click", saveAppointment);
 
   appointmentsListOverlay.querySelectorAll(".modal-close").forEach((button) => {
     button.addEventListener("click", closeModals);
   });
-  appointmentsListOverlay.querySelector(".modal-close-button").addEventListener("click", closeModals);
+  appointmentsListOverlay
+    .querySelector(".modal-close-button")
+    .addEventListener("click", closeModals);
 }
 
-function openAppointmentModal({ year, month, monthName, day }) {
+function openAppointmentModal(
+  { year, month, monthName, day },
+  appointment = null,
+) {
   if (!appointmentFormOverlay) {
     createModals();
   }
@@ -110,10 +124,21 @@ function openAppointmentModal({ year, month, monthName, day }) {
   const titleInput = appointmentForm.querySelector("input[name='title']");
   const startInput = appointmentForm.querySelector("input[name='startTime']");
   const endInput = appointmentForm.querySelector("input[name='endTime']");
+  const warning = appointmentForm.querySelector(".modal-warning");
 
-  titleInput.value = "";
-  startInput.value = "";
-  endInput.value = "";
+  if (appointment) {
+    editingAppointmentId = appointment.id;
+    titleInput.value = appointment.title;
+    startInput.value = appointment.startTime;
+    endInput.value = appointment.endTime;
+  } else {
+    editingAppointmentId = null;
+    titleInput.value = "";
+    startInput.value = "";
+    endInput.value = "";
+  }
+
+  warning.style.display = "none";
   titleInput.focus();
 }
 
@@ -129,22 +154,46 @@ function openAppointmentsModal() {
 function closeModals() {
   if (appointmentFormOverlay) appointmentFormOverlay.classList.remove("open");
   if (appointmentsListOverlay) appointmentsListOverlay.classList.remove("open");
+  editingAppointmentId = null;
+}
+
+function hasTimeConflict(newAppointment, excludeId = null) {
+  return appointments.some((appointment) => {
+    if (excludeId && appointment.id === excludeId) return false;
+    if (
+      appointment.year !== newAppointment.year ||
+      appointment.month !== newAppointment.month ||
+      appointment.day !== newAppointment.day
+    ) {
+      return false;
+    }
+    const newStart = newAppointment.startTime;
+    const newEnd = newAppointment.endTime;
+    const existingStart = appointment.startTime;
+    const existingEnd = appointment.endTime;
+    return newStart < existingEnd && newEnd > existingStart;
+  });
 }
 
 function saveAppointment() {
-  const title = appointmentForm.querySelector("input[name='title']").value.trim();
-  const startTime = appointmentForm.querySelector("input[name='startTime']").value;
+  const title = appointmentForm
+    .querySelector("input[name='title']")
+    .value.trim();
+  const startTime = appointmentForm.querySelector(
+    "input[name='startTime']",
+  ).value;
   const endTime = appointmentForm.querySelector("input[name='endTime']").value;
-  const year = appointmentForm.dataset.year;
-  const month = appointmentForm.dataset.month;
+  const year = Number(appointmentForm.dataset.year);
+  const month = Number(appointmentForm.dataset.month);
   const monthName = appointmentForm.dataset.monthName;
-  const day = appointmentForm.dataset.day;
+  const day = Number(appointmentForm.dataset.day);
+  const warning = appointmentForm.querySelector(".modal-warning");
 
   if (!title || !startTime || !endTime) {
     return;
   }
 
-  appointments.push({
+  const newAppointment = {
     title,
     startTime,
     endTime,
@@ -152,16 +201,58 @@ function saveAppointment() {
     month,
     monthName,
     day,
-  });
+  };
+
+  if (hasTimeConflict(newAppointment, editingAppointmentId)) {
+    warning.textContent =
+      "Conflito de horário! Já existe um compromisso neste período.";
+    warning.style.display = "block";
+    return;
+  }
+
+  if (editingAppointmentId) {
+    const index = appointments.findIndex(
+      (app) => app.id === editingAppointmentId,
+    );
+    if (index !== -1) {
+      appointments[index] = { ...newAppointment, id: editingAppointmentId };
+    }
+  } else {
+    newAppointment.id = Date.now();
+    appointments.push(newAppointment);
+  }
 
   closeModals();
+}
+
+function editAppointment(appointment) {
+  openAppointmentModal(
+    {
+      year: appointment.year,
+      month: appointment.month,
+      monthName: appointment.monthName,
+      day: appointment.day,
+    },
+    appointment,
+  );
+}
+
+function deleteAppointment(id) {
+  if (confirm("Tem certeza que deseja deletar este compromisso?")) {
+    const index = appointments.findIndex((app) => app.id === id);
+    if (index !== -1) {
+      appointments.splice(index, 1);
+      renderAppointments();
+    }
+  }
 }
 
 function renderAppointments() {
   appointmentListContainer.innerHTML = "";
 
   if (appointments.length === 0) {
-    appointmentListContainer.textContent = "Nenhum compromisso agendado nesta sessão.";
+    appointmentListContainer.textContent =
+      "Nenhum compromisso agendado nesta sessão.";
     return;
   }
 
@@ -169,10 +260,22 @@ function renderAppointments() {
     const item = document.createElement("div");
     item.className = "appointment-item";
     item.innerHTML = `
-      <strong>${appointment.title}</strong>
-      <span>${appointment.day} de ${appointment.monthName} de ${appointment.year}</span>
-      <span>${appointment.startTime} - ${appointment.endTime}</span>
+      <div class="appointment-info">
+        <strong>${appointment.title}</strong>
+        <span>${appointment.day} de ${appointment.monthName} de ${appointment.year}</span>
+        <span>${appointment.startTime} - ${appointment.endTime}</span>
+      </div>
+      <div class="appointment-actions">
+        <button class="modal-button modal-edit" data-id="${appointment.id}">Editar</button>
+        <button class="modal-button modal-delete" data-id="${appointment.id}">Deletar</button>
+      </div>
     `;
+    item
+      .querySelector(".modal-edit")
+      .addEventListener("click", () => editAppointment(appointment));
+    item
+      .querySelector(".modal-delete")
+      .addEventListener("click", () => deleteAppointment(appointment.id));
     appointmentListContainer.appendChild(item);
   });
 }

@@ -230,16 +230,43 @@ main {
   padding: 1rem;
   border-radius: 0.9rem;
   background: #141414;
-  display: grid;
-  gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
-.appointment-item strong {
+.appointment-info {
+  flex: 1;
+}
+
+.appointment-info strong {
   display: block;
   font-size: 1rem;
 }
 
-.appointment-item span {
+.appointment-info span {
   font-size: 0.9rem;
   color: #9aa5b1;
+}
+
+.appointment-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.modal-edit {
+  background: #2f4f4f;
+}
+
+.modal-edit:hover {
+  background: #3d5d5d;
+}
+
+.modal-delete {
+  background: #8b0000;
+}
+
+.modal-delete:hover {
+  background: #a00000;
 }

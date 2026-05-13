@@ -160,11 +160,12 @@ export class Days {
     );
     const selectedMonthName =
       document.getElementById("panel-dias-leave")?.textContent || "";
+    const selectedMonth = Months.getMonths().indexOf(selectedMonthName);
 
     Header.openAppointmentModal({
       year: selectedYear,
+      month: selectedMonth,
       monthName: selectedMonthName,
-      month: selectedMonthName,
       day,
     });
   }
