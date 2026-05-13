@@ -40,4 +40,8 @@ export function YearsDots() {
   });
 
   panelAnos.appendChild(section);
+
+  // Add fade-in animation
+  section.classList.add("fade-in");
+  setTimeout(() => section.classList.remove("fade-in"), 500);
 }

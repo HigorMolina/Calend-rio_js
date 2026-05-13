@@ -57,4 +57,8 @@ export function MonthsDots(year) {
   }
 
   panelMeses.classList.remove("hide");
+
+  // Add fade-in animation
+  section.classList.add("fade-in");
+  setTimeout(() => section.classList.remove("fade-in"), 500);
 }
